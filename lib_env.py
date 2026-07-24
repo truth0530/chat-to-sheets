@@ -1,10 +1,10 @@
-"""Load .env without shell `source` (safe with spaces in paths)."""
+"""Load .env from project root (safe with spaces in paths)."""
 from __future__ import annotations
 
 import os
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parent
 
 
 def load_env(path: Path | None = None) -> dict[str, str]:
@@ -20,7 +20,6 @@ def load_env(path: Path | None = None) -> dict[str, str]:
         k, v = k.strip(), v.strip().strip('"').strip("'")
         out[k] = v
         os.environ[k] = v
-    # Prefer kit-local credentials if path missing
     cred = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")
     if not cred or not Path(cred).is_file():
         local = ROOT / "credentials" / "google-service-account.json"
@@ -34,4 +33,11 @@ def require_env(*keys: str) -> None:
     load_env()
     missing = [k for k in keys if not os.environ.get(k)]
     if missing:
-        raise SystemExit(f"Missing env keys {missing}. Run scripts/bootstrap.py first.")
+        raise SystemExit(
+            f"Missing env keys {missing}. Run setup first: "
+            f"python setup/scripts/bootstrap.py (see setup/README.md)"
+        )
+
+
+def project_root() -> Path:
+    return ROOT

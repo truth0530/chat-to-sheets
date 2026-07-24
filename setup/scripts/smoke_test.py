@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Write a few cells to verify SA can edit the demo board."""
+"""Tool 1 — verify service account can write the demo board."""
 from __future__ import annotations
 
 import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
 from lib_env import load_env, require_env  # noqa: E402
 
 from google.oauth2.service_account import Credentials
@@ -30,9 +31,9 @@ def main() -> None:
         body={
             "values": [
                 ["[smoke]", "time", "status", "note"],
-                ["API link", "=TEXT(NOW(),\"yyyy-mm-dd hh:mm\")", "OK", "virtual"],
-                ["domain", "docs/04", "ready", "no real PII"],
-                ["next", "clear_board or demo S1", "wait", "human verify"],
+                ["API link", '=TEXT(NOW(),"yyyy-mm-dd hh:mm")', "OK", "virtual"],
+                ["setup", "Tool 1", "ready", "no real PII"],
+                ["next", "Tool 2 control/", "wait", "human verify"],
             ]
         },
     ).execute()
@@ -46,7 +47,7 @@ def main() -> None:
     print("URL", os.environ.get("SPREADSHEET_URL", ""))
     for i, r in enumerate(rows, 1):
         print(f"R{i}: {r}")
-    print("smoke OK")
+    print("smoke OK · Tool 1 complete enough for Tool 2")
 
 
 if __name__ == "__main__":

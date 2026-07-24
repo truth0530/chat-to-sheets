@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Write fictional orientation checklist (scenario S1) to DemoBoard."""
+"""Tool 2 — write fictional orientation checklist (scenario S1)."""
 from __future__ import annotations
 
 import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
 from lib_env import load_env, require_env  # noqa: E402
 
 from google.oauth2.service_account import Credentials
@@ -37,7 +38,7 @@ def main() -> None:
         [NOTICE],
         [],
         ["[FICTIONAL] New-program orientation prep checklist (draft · demo S1)"],
-        ["via: run_demo_s1.py", "rules: docs/04", "sum: must → column D only"],
+        ["via: control/scripts/run_demo_s1.py", "rules: control/docs", "sum: must → D only"],
         [],
         [
             "group",
@@ -48,23 +49,23 @@ def main() -> None:
             "status",
             "human check",
         ],
-        ["must", "Draft orientation guide", "", 1, "program lead", "draft", "Align with internal policy text"],
-        ["must", "Collect partner site replies list", "", 1, "coordinator", "needs review", "Channels and deadlines OK?"],
-        ["must", "Review safety briefing materials", "", 1, "program lead", "draft", "Required topics present?"],
-        ["must", "Share staff schedule draft", "", 1, "admin", "needs review", "Shared calendar not private only?"],
+        ["must", "Draft orientation guide", "", 1, "program lead", "draft", "Align with policy text"],
+        ["must", "Collect partner site replies list", "", 1, "coordinator", "needs review", "Channels OK?"],
+        ["must", "Review safety briefing materials", "", 1, "program lead", "draft", "Topics present?"],
+        ["must", "Share staff schedule draft", "", 1, "admin", "needs review", "Shared calendar?"],
         ["must", "Confirm notice channel", "", 1, "admin", "draft", "Official channel?"],
-        ["must", "One-page emergency path", "", 1, "program lead", "needs review", "No conflict with site rules?"],
+        ["must", "One-page emergency path", "", 1, "program lead", "needs review", "No conflict?"],
         ["optional", "FAQ for guardians (optional)", "", 1, "admin", "optional", "Approval path?"],
         ["optional", "Day-of venue checklist", "", 1, "coordinator", "optional", "Who books room?"],
-        ["note", "Last-year checklist item count (do not sum with D)", 12, "", "—", "note", "C only — never add to must total"],
+        ["note", "Last-year checklist count (do not sum with D)", 12, "", "—", "note", "C only"],
         [],
-        ["summary", "must residual sum", "", '=SUMIF(A7:A15,"must",D7:D15)', "", "", "D + must only"],
+        ["summary", "must residual sum", "", '=SUMIF(A7:A15,"must",D7:D15)', "", "", "D + must"],
         ["summary", "optional residual sum", "", '=SUMIF(A7:A15,"optional",D7:D15)', "", "", "optional"],
-        ["summary", "note benchmark (no sum into must)", '=SUMIF(A7:A15,"note",C7:C15)', "", "", "", "C only"],
+        ["summary", "note benchmark", '=SUMIF(A7:A15,"note",C7:C15)', "", "", "", "C only"],
         [],
         ["human gate", "before publish", "", "", "", "must", "1 policy 2 schedule 3 no PII 4 tone"],
         [],
-        ["note", "Fictional demo only. Replace with your own non-sensitive data after local policy review."],
+        ["note", "Fictional demo only. Human verifies before any real use."],
     ]
 
     svc.spreadsheets().values().update(
@@ -106,7 +107,7 @@ def main() -> None:
     )
     print("URL", os.environ.get("SPREADSHEET_URL", ""))
     print("must sum D17 =", d17, "(expect 6)")
-    print("demo S1 OK")
+    print("demo S1 OK · Tool 2")
 
 
 if __name__ == "__main__":

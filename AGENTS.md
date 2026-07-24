@@ -1,35 +1,31 @@
-# Agent instructions — chat-to-sheets-kit
+# Agent instructions — repository root
 
-You are helping a **beginner** set up and demo AI → Google Sheets.
+## Dual structure
 
-## Goals
+1. **`setup/`** — Tool 1 bootstrap (may be skipped in short demos if `.env` already valid)  
+2. **`control/`** — Tool 2 sheet control + knowledge system  
 
-1. Their own Google Cloud project + Sheets/Drive APIs
-2. Service account JSON in `credentials/` (local only)
-3. Blank spreadsheet they can open in a browser
-4. SA has **Editor** on that spreadsheet
-5. Smoke write works
-6. Optional: write fictional scenario table (S1)
+## First action
 
-## Never do
+```bash
+python setup/scripts/check_environment.py
+```
 
-- Invent or request real student/patient/staff personal data
-- Put real school/hospital/company names into sample rows
-- Commit `credentials/*.json` or `.env`
-- Assume service account can **create** Drive files (quota often 0)
-- Skip browser-based `gcloud auth login` when auth is missing
+- Required failures → work in `setup/` only until smoke OK  
+- Required OK + user wants tables → `control/`  
 
-## Always do
+## Commands from repo root
 
-- Follow docs in order: `00` → `01` → `02` → `03` → scripts
-- Quote paths with spaces safely in shell
-- After writes, print spreadsheet URL and verification values
-- State that results are **drafts** for human review
+```bash
+python setup/scripts/check_environment.py
+python setup/scripts/bootstrap.py
+python setup/scripts/smoke_test.py
+python setup/scripts/clear_board.py
+python control/scripts/run_demo_s1.py
+```
 
-## Environment load
+## Never
 
-Do **not** `source .env` if paths may contain spaces. Use `scripts/lib_env.py` or parse line-by-line in Python.
-
-## Default tab name
-
-`DemoBoard` (or `시연판` if user prefers Korean — keep consistent with `.env` `SPREADSHEET_TAB`)
+- Real PII in cells  
+- Password collection in chat  
+- Commit secrets  
