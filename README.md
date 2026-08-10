@@ -23,7 +23,7 @@ Lab / education use. Results are **drafts**.
 ## Quick start
 
 ```bash
-git clone <this-repo-url> sheet
+git clone https://github.com/truth0530/chat-to-sheets.git sheet
 cd sheet
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
@@ -36,6 +36,9 @@ python setup/scripts/smoke_test.py
 
 # Tool 2
 python control/scripts/run_demo_s1.py
+
+# Optional: demo email (dry-run; see setup/docs/07_gmail_api.md)
+python control/scripts/send_demo_email.py
 ```
 
 ---
@@ -57,6 +60,8 @@ sheet/
 ├── README.md              ← you are here
 ├── SKILL.md / AGENTS.md   ← dual-tool router
 ├── lib_env.py             ← shared .env loader
+├── shared/                ← Gmail helpers (demo mail)
+├── scripts/               ← optional gws wrappers
 ├── requirements.txt
 ├── credentials/           ← SA JSON (gitignored), README only in git
 ├── setup/                 ← Tool 1
@@ -69,6 +74,7 @@ sheet/
 
 - [docs/PRIVACY.md](docs/PRIVACY.md)  
 - [docs/07_distribute.md](docs/07_distribute.md) — zip / GitHub / Skill  
+- [docs/GWS_CLI_ADOPTION.md](docs/GWS_CLI_ADOPTION.md) — optional gws (path B) + Gmail notes  
 
 ---
 
