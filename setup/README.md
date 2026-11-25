@@ -55,6 +55,9 @@ python setup/scripts/clear_board.py
 | [docs/04_sheet_and_share.md](docs/04_sheet_and_share.md) | 시트 · 공유 |
 | [docs/05_agent_playbook.md](docs/05_agent_playbook.md) | AI가 따라 할 체크리스트 |
 | [docs/06_troubleshooting.md](docs/06_troubleshooting.md) | 막힘 표 |
+| [docs/07_gmail_api.md](docs/07_gmail_api.md) | (옵션) Gmail API · user OAuth · demo mail |
+
+Optional mail / gws overview: [../docs/GWS_CLI_ADOPTION.md](../docs/GWS_CLI_ADOPTION.md)
 
 ---
 

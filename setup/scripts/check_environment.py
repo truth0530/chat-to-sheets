@@ -155,6 +155,73 @@ def main() -> None:
     except ImportError:
         add("python_google_auth", False, "pip install -r requirements.txt", True)
 
+    # --- Optional: Gmail demo + gws (path B) ---
+    gws = which("gws")
+    if gws:
+        code, out = run(["gws", "--version"])
+        ver = (out.splitlines()[0] if out else "ok")[:80]
+        add("gws_cli", code == 0, f"{gws} · {ver}", required=False)
+    else:
+        add(
+            "gws_cli",
+            False,
+            "optional path B: npm i -g @googleworkspace/cli · docs/GWS_CLI_ADOPTION.md",
+            required=False,
+        )
+
+    gmail_api_ok = False
+    gmail_api_detail = "optional: gcloud services enable gmail.googleapis.com"
+    if gcloud:
+        code, out = run(
+            [
+                "gcloud",
+                "services",
+                "list",
+                "--enabled",
+                "--filter=config.name:gmail.googleapis.com",
+                "--format=value(config.name)",
+            ]
+        )
+        if code == 0 and "gmail.googleapis.com" in (out or ""):
+            gmail_api_ok = True
+            gmail_api_detail = "gmail.googleapis.com enabled"
+        elif code == 0:
+            gmail_api_detail = (
+                "not enabled (optional demo mail) → "
+                "gcloud services enable gmail.googleapis.com · setup/docs/07_gmail_api.md"
+            )
+        else:
+            gmail_api_detail = (
+                "could not list services (optional) · enable Gmail API in Console "
+                "or: gcloud services enable gmail.googleapis.com"
+            )
+    add("gmail_api", gmail_api_ok, gmail_api_detail, required=False)
+
+    # Re-read env values for Gmail keys if .env present
+    if env.is_file():
+        sys.path.insert(0, str(ROOT))
+        from lib_env import load_env as _load
+
+        vals = _load()
+        gmail_to = (vals.get("GMAIL_TO") or "").strip()
+        demo_owner = (vals.get("DEMO_OWNER_EMAIL") or "").strip()
+        has_recipient = bool(gmail_to or demo_owner)
+        add(
+            "gmail_recipient_env",
+            has_recipient,
+            "GMAIL_TO or DEMO_OWNER_EMAIL set"
+            if has_recipient
+            else "optional: set GMAIL_TO for demo mail (self only)",
+            required=False,
+        )
+        # Never print real addresses in full if they look non-placeholder — redact middle
+        if gmail_to and "@" in gmail_to and "example." not in gmail_to.lower():
+            local, _, domain = gmail_to.partition("@")
+            redacted = (local[:2] + "***@" + domain) if local else "***"
+            add("gmail_to_present", True, f"set ({redacted})", required=False)
+        elif gmail_to:
+            add("gmail_to_present", True, "set (placeholder or local)", required=False)
+
     if args.json:
         print(json.dumps({"root": str(ROOT), "checks": rows}, indent=2))
     else:

@@ -11,6 +11,9 @@ After the agent has loaded the knowledge system, users may speak briefly.
 | 안전 교육 행을 확인 필요로 | find safety row, set status, write back |
 | 참고랑 필수 합치지 마 | explain C vs D; fix formulas if wrong |
 | 표 헤더만 만들어 | write A1 notice + header row only |
+| 데모 결과 메일로 보내 줘 / email me the demo | `send_demo_email.py` **dry-run first**; confirm self/allow-list; `--send` only if user wants real delivery |
+| 메일 dry-run / 미리보기만 | `python control/scripts/send_demo_email.py` (no `--send`) |
+| gws로 메일 | path B: `bash scripts/send_demo_email_gws.sh` — see `setup/docs/07_gmail_api.md` |
 
 ## Template for new short questions
 

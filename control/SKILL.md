@@ -26,6 +26,7 @@ description: >-
 - Write/update ranges via Sheets API (service account)
 - Map short user phrases to operations (see 03)
 - Run `control/scripts/run_demo_s1.py` for standard demo
+- Optional mail: `control/scripts/send_demo_email.py` (dry-run first; `--send` only if user asks; self/allow-list)
 - Always remind: draft + human verify + fictional data only
 
 ## Column pattern

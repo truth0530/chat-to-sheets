@@ -27,3 +27,5 @@ Turning a **clean machine** into one that can:
 
 Tool 1 success is only: **smoke write works**.  
 Then open `control/` for sheet control demos.
+
+Optional later: Gmail demo mail ([07_gmail_api.md](07_gmail_api.md)) — not required for Tool 2 sheet demos.

@@ -35,6 +35,11 @@ S1 표 채워 줘
 python control/scripts/run_demo_s1.py
 python control/scripts/clear_board.py
 python control/scripts/smoke_test.py   # connectivity only
+
+# optional: demo summary email (dry-run default; self/allow-list only)
+python control/scripts/send_demo_email.py
+python control/scripts/send_demo_email.py --send   # explicit send only
+# path B (if gws installed): bash scripts/send_demo_email_gws.sh
 ```
 
 ---
@@ -49,6 +54,8 @@ python control/scripts/smoke_test.py   # connectivity only
 | [docs/03_short_questions.md](docs/03_short_questions.md) | 짧은 질문 → 동작 |
 | [docs/04_scenarios.md](docs/04_scenarios.md) | 가상 시나리오 S1 |
 | [docs/05_prompts.md](docs/05_prompts.md) | 복붙 프롬프트 |
+
+Gmail setup (optional): [../setup/docs/07_gmail_api.md](../setup/docs/07_gmail_api.md) · gws analysis: [../docs/GWS_CLI_ADOPTION.md](../docs/GWS_CLI_ADOPTION.md)
 
 ---
 

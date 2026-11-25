@@ -22,6 +22,8 @@ python setup/scripts/bootstrap.py
 python setup/scripts/smoke_test.py
 python setup/scripts/clear_board.py
 python control/scripts/run_demo_s1.py
+python control/scripts/send_demo_email.py          # dry-run default
+# python control/scripts/send_demo_email.py --send  # only if user confirms
 ```
 
 ## Never
